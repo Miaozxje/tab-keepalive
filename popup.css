@@ -1,15 +1,38 @@
 :root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color-scheme: light dark;
+
+  --power-off: #45403d;
+  --power-off-edge: #2f2b29;
+  --power-on: #00c853;
+  --power-on-edge: #009624;
+  --state-on: #2e7d32;
+  --state-off: #d32f2f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --state-on: #69f0ae;
+    --state-off: #ff6b6b;
+  }
 }
 
 body {
   margin: 0;
-  min-width: 410px;
+  width: 300px;
 }
 
 main {
-  padding: 16px;
+  padding: 18px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+header {
+  align-self: stretch;
+  text-align: left;
 }
 
 h1 {
@@ -17,121 +40,63 @@ h1 {
   font-size: 19px;
 }
 
-h2 {
-  margin: 18px 0 8px;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  opacity: 0.75;
-}
-
 .site {
-  margin: 0 0 14px;
-  max-width: 375px;
+  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   opacity: 0.7;
 }
 
-.master-toggle,
-.option {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+.power {
+  margin-top: 28px;
+  width: 168px;
+  height: 168px;
+  border: 0;
+  border-radius: 50%;
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #fff;
+  cursor: pointer;
+  background: radial-gradient(circle at 50% 30%, var(--power-off), var(--power-off-edge));
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
 }
 
-.master-toggle {
-  align-items: center;
+.power:hover:not(:disabled) {
+  transform: scale(1.03);
+}
+
+.power:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.power[aria-pressed="true"] {
+  background: radial-gradient(circle at 50% 30%, var(--power-on), var(--power-on-edge));
+  box-shadow: 0 0 0 6px rgba(0, 200, 83, 0.18), 0 0 28px rgba(0, 230, 118, 0.55);
+}
+
+.power:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.state {
+  margin: 20px 0 0;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 13px;
+  color: var(--state-off);
 }
 
-input[type="checkbox"] {
-  width: 17px;
-  height: 17px;
-  flex: 0 0 auto;
+.state.on {
+  color: var(--state-on);
 }
 
-.assessment {
-  padding: 10px;
-  border: 1px solid rgba(127, 127, 127, 0.28);
-  border-radius: 7px;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+.message {
+  margin: 10px 0 0;
   font-size: 12px;
-}
-
-.assessment strong {
-  text-align: right;
-}
-
-.status {
-  margin: 10px 0;
-  font-size: 12px;
-}
-
-.diagnostics {
-  padding: 8px 0;
-  border-top: 1px solid rgba(127, 127, 127, 0.22);
-  border-bottom: 1px solid rgba(127, 127, 127, 0.22);
-  font-size: 12px;
-}
-
-.diagnostics div {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 3px 0;
-}
-
-.diagnostics strong {
-  text-align: right;
-}
-
-button {
-  margin-top: 10px;
-  padding: 6px 10px;
-  cursor: pointer;
-}
-
-.option {
-  margin: 9px 0;
-  cursor: pointer;
-}
-
-.option span {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.option strong {
-  font-size: 12px;
-}
-
-.option small {
-  font-size: 11px;
-  line-height: 1.35;
-  opacity: 0.68;
-}
-
-.inline-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 8px 0 10px 27px;
-  font-size: 11px;
-}
-
-select {
-  font: inherit;
-}
-
-.warning {
-  margin: 12px 0 0;
-  font-size: 11px;
-  line-height: 1.4;
   opacity: 0.75;
 }
